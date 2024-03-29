@@ -1,0 +1,192 @@
+            - name: AI-based PR Reviewer & Summarizer with Chat Capabilities
+  # You may pin to the exact commit or the version.
+  # uses: coderabbitai/ai-pr-reviewer@44244a9e06f5acf72a93f661c7dbb8d8d808143d
+  uses: coderabbitai/ai-pr-reviewer@1.16.2
+  with:
+    # Enable debug mode
+    debug: # optional, default is false
+    # Max files to summarize and review. Less than or equal to 0 means no limit.
+    max_files: # optional, default is 150
+    # Review even when the changes are simple
+    review_simple_changes: # optional, default is false
+    # Leave comments even if the patch is LGTM
+    review_comment_lgtm: # optional, default is false
+    # The path filters, e.g., "src/**.py", "!dist/**", each line will be considered as one pattern.
+See also
+
+- https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#onpushpull_requestpull_request_targetpathspaths-ignore
+- https://github.com/isaacs/minimatch
+
+    path_filters: # optional, default is !dist/**
+!**/*.app
+!**/*.bin
+!**/*.bz2
+!**/*.class
+!**/*.db
+!**/*.csv
+!**/*.tsv
+!**/*.dat
+!**/*.dll
+!**/*.dylib
+!**/*.egg
+!**/*.glif
+!**/*.gz
+!**/*.xz
+!**/*.zip
+!**/*.7z
+!**/*.rar
+!**/*.zst
+!**/*.ico
+!**/*.jar
+!**/*.tar
+!**/*.war
+!**/*.lo
+!**/*.log
+!**/*.mp3
+!**/*.wav
+!**/*.wma
+!**/*.mp4
+!**/*.avi
+!**/*.mkv
+!**/*.wmv
+!**/*.m4a
+!**/*.m4v
+!**/*.3gp
+!**/*.3g2
+!**/*.rm
+!**/*.mov
+!**/*.flv
+!**/*.iso
+!**/*.swf
+!**/*.flac
+!**/*.nar
+!**/*.o
+!**/*.ogg
+!**/*.otf
+!**/*.p
+!**/*.pdf
+!**/*.doc
+!**/*.docx
+!**/*.xls
+!**/*.xlsx
+!**/*.ppt
+!**/*.pptx
+!**/*.pkl
+!**/*.pickle
+!**/*.pyc
+!**/*.pyd
+!**/*.pyo
+!**/*.pub
+!**/*.pem
+!**/*.rkt
+!**/*.so
+!**/*.ss
+!**/*.eot
+!**/*.exe
+!**/*.pb.go
+!**/*.lock
+!**/*.ttf
+!**/*.yaml
+!**/*.yml
+!**/*.cfg
+!**/*.toml
+!**/*.ini
+!**/*.mod
+!**/*.sum
+!**/*.work
+!**/*.json
+!**/*.mmd
+!**/*.svg
+!**/*.jpeg
+!**/*.jpg
+!**/*.png
+!**/*.gif
+!**/*.bmp
+!**/*.tiff
+!**/*.webm
+!**/*.woff
+!**/*.woff2
+!**/*.dot
+!**/*.md5sum
+!**/*.wasm
+!**/*.snap
+!**/*.parquet
+!**/gen/**
+!**/_gen/**
+!**/generated/**
+!**/@generated/**
+!**/vendor/**
+!**/*.min.js
+!**/*.min.js.map
+!**/*.min.js.css
+!**/*.tfstate
+!**/*.tfstate.backup
+
+    # Only provide the summary and skip the code review.
+    disable_review: # optional, default is false
+    # Disable release notes
+    disable_release_notes: # optional, default is false
+    # The url of the openai api interface.
+    openai_base_url: # optional, default is https://api.openai.com/v1
+    # Model to use for simple tasks like summarizing diff on a file.
+    openai_light_model: # optional, default is gpt-3.5-turbo
+    # Model to use for complex tasks such as code reviews.
+    openai_heavy_model: # optional, default is gpt-4
+    # Temperature for GPT model
+    openai_model_temperature: # optional, default is 0.05
+    # How many times to retry OpenAI API in case of timeouts or errors?
+    openai_retries: # optional, default is 5
+    # Timeout for OpenAI API call in millis
+    openai_timeout_ms: # optional, default is 360000
+    # How many concurrent API calls to make to OpenAI servers?
+    openai_concurrency_limit: # optional, default is 6
+    # How many concurrent API calls to make to GitHub?
+    github_concurrency_limit: # optional, default is 6
+    # System message to be sent to OpenAI
+    system_message: # optional, default is You are `@coderabbitai` (aka `github-actions[bot]`), a language model 
+trained by OpenAI. Your purpose is to act as a highly experienced 
+software engineer and provide a thorough review of the code hunks
+and suggest code snippets to improve key areas such as:
+  - Logic
+  - Security
+  - Performance
+  - Data races
+  - Consistency
+  - Error handling
+  - Maintainability
+  - Modularity
+  - Complexity
+  - Optimization
+  - Best practices: DRY, SOLID, KISS
+
+Do not comment on minor code style issues, missing 
+comments/documentation. Identify and resolve significant 
+concerns to improve overall code quality while deliberately 
+disregarding minor issues.
+
+    # The prompt for final summarization response
+    summarize: # optional, default is Provide your final response in markdown with the following content:
+
+- **Walkthrough**: A high-level summary of the overall change instead of 
+  specific files within 80 words.
+- **Changes**: A markdown table of files and their summaries. Group files 
+  with similar changes together into a single row to save space.
+- **Poem**: Below the changes, include a whimsical, short poem written by 
+  a rabbit to celebrate the changes. Format the poem as a quote using 
+  the ">" symbol and feel free to use emojis where relevant.
+
+Avoid additional commentary as this summary will be added as a comment on the 
+GitHub pull request. Use the titles "Walkthrough" and "Changes" and they must be H2.
+
+    # The prompt for generating release notes in the same chat as summarize stage
+    summarize_release_notes: # optional, default is Craft concise release notes for the pull request. 
+Focus on the purpose and user impact, categorizing changes as "New Feature", "Bug Fix", 
+"Documentation", "Refactor", "Style", "Test", "Chore", or "Revert". Provide a bullet-point list, 
+e.g., "- New Feature: Added search functionality to the UI". Limit your response to 50-100 words 
+and emphasize features visible to the end-user while omitting code-level details.
+
+    # ISO code for the response language
+    language: # optional, default is en-US
+    # The icon for the bot
+    bot_icon: # optional, default is <img src="https://avatars.githubusercontent.com/in/347564?s=41" alt="Image description" width="20" height="20">
+          
